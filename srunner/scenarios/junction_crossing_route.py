@@ -13,7 +13,7 @@ from __future__ import print_function
 
 import py_trees
 
-from srunner.scenariomanager.scenarioatomics.atomic_behaviors import TrafficLightManipulator
+from srunner.scenariomanager.scenarioatomics.atomic_behaviors import TrafficLightManipulator, ChangeAutoPilot
 
 from srunner.scenariomanager.scenarioatomics.atomic_criteria import CollisionTest, DrivenDistanceTest, MaxVelocityTest
 from srunner.scenariomanager.scenarioatomics.atomic_trigger_conditions import DriveDistance, WaitEndIntersection
@@ -143,11 +143,12 @@ class NoSignalJunctionCrossingRoute(BasicScenario):
                                                             world,
                                                             debug_mode,
                                                             criteria_enable=criteria_enable)
-
+    '''
     def _initialize_actors(self, config):
         """
         Custom initialization
         """
+    '''
 
     def _create_behavior(self):
         """
@@ -159,18 +160,26 @@ class NoSignalJunctionCrossingRoute(BasicScenario):
         If this does not happen within 120 seconds, a timeout stops the scenario
         """
         # finally wait that ego vehicle drove a specific distance
+        '''
         wait = WaitEndIntersection(
             self.ego_vehicles[0],
             name="WaitEndIntersection")
+        
         end_condition = DriveDistance(
-            self.ego_vehicles[0],
+            self.other_actors[0],
             self._ego_distance_to_drive,
             name="DriveDistance")
+        '''
+
+        behavior = ChangeAutoPilot(
+            self.other_actors[0],
+            True
+        )
 
         # Build behavior tree
         sequence = py_trees.composites.Sequence("NoSignalJunctionCrossingRoute")
-        sequence.add_child(wait)
-        sequence.add_child(end_condition)
+        #sequence.add_child(wait)
+        sequence.add_child(behavior)
 
         return sequence
 

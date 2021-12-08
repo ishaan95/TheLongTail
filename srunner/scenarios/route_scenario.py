@@ -396,8 +396,8 @@ class RouteScenario(BasicScenario):
 
         # Create the background activity of the route
         town_amount = {
-            'Town01': 120,
-            'Town02': 100,
+            'Town01': 2,
+            'Town02': 0,
             'Town03': 120,
             'Town04': 200,
             'Town05': 120,
@@ -479,7 +479,7 @@ class RouteScenario(BasicScenario):
 
         route = convert_transform_to_location(self.route)
 
-        collision_criterion = CollisionTest(self.ego_vehicles[0], terminate_on_failure=False)
+        collision_criterion = CollisionTest(self.ego_vehicles[0], terminate_on_failure=True)
 
         route_criterion = InRouteTest(self.ego_vehicles[0],
                                       route=route,

@@ -567,9 +567,12 @@ def main():
     parser.add_argument('--repetitions', default=1, type=int, help='Number of scenario executions')
     parser.add_argument('--waitForEgo', action="store_true", help='Connect the scenario to an existing ego vehicle')
 
-    arguments = parser.parse_args()
+    # arguments = parser.parse_args()
     # pylint: enable=line-too-long
 
+    arguments = parser.parse_args(['--route', 'srunner/data/Thelongtailroute.xml', 'srunner/data/thelongtailscenario.json', '0', '--agent', 'srunner/autoagents/npc_agent.py', '--record', '.'])
+    print(arguments.route)
+    print(arguments.agent)
     if arguments.list:
         print("Currently the following scenarios are supported:")
         print(*ScenarioConfigurationParser.get_list_of_scenarios(arguments.configFile), sep='\n')
